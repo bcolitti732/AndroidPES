@@ -43,7 +43,7 @@ public class MainActivity extends AppCompatActivity {
             public void run() {
                 if (!Username.getText().toString().isEmpty() && !Password.getText().toString().isEmpty()) {
                     try {
-                        String query = String.format("http://192.168.1.132:9000/Android/loginUser?username=" + Username.getText().toString() + "&password=" + Password.getText().toString());
+                        String query = String.format("http://192.168.56.1:9000/Application/logInRenter?name=" + Username.getText().toString() + "&password=" + Password.getText().toString());
                         URL url = new URL(query);
                         HttpURLConnection conn = (HttpURLConnection) url.openConnection();
                         conn.setReadTimeout(10000);
@@ -64,6 +64,20 @@ public class MainActivity extends AppCompatActivity {
 
                         Log.i("testProjecte", "result value is" + result);
                         if (result.equals("1")) {
+                            handler.post(new Runnable() {
+                                public void run() {
+                                    MainActivity.this.runOnUiThread(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+                                            builder.setMessage("USER")
+                                                    .setTitle("FurHub")
+                                                    .setPositiveButton("OK", null);
+                                            builder.create().show();
+                                        }
+                                    });
+                                }
+                            });
                             // Aqui ira a la pagina con los pisos pero no se que poner
                         } else {
                             handler.post(new Runnable() {

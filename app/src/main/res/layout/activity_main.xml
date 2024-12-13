@@ -69,6 +69,7 @@
         android:layout_height="68dp"
         android:backgroundTint="@color/button_color"
         android:fontFamily="@font/alfa_slab_one"
+        android:onClick="Login"
         android:text="@string/loginBtn"
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"

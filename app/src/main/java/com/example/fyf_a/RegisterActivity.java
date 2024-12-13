@@ -28,7 +28,7 @@ public class RegisterActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
     }
-    public void Register_function(View view) {
+    public void registerRenter(View view) {
 
         new Thread(new Runnable() {
             EditText Username = (EditText) findViewById(R.id.nameLbl);
@@ -48,7 +48,7 @@ public class RegisterActivity extends AppCompatActivity {
             public void run() {
                 if(!Username.getText().toString().isEmpty() && !Password.getText().toString().isEmpty() && !Confirm_Password.getText().toString().isEmpty()) {
                     try {
-                        String query = String.format("http://192.168.1.132:9000/Android/registerUser");
+                        String query = String.format("http://192.168.56.1:9000/Application/registerRenter?name=" + Username.getText().toString() + "&mail="+Mail.getText().toString()+"&age="+Age.getText().toString()+"&nationality="+Nationality.getText().toString()+"&occupation="+Occupation.getText().toString()+"&password="+Password.getText().toString()+"&verifyPassword"+Confirm_Password.getText().toString());
                         URL url = new URL(query);
                         HttpURLConnection conn = (HttpURLConnection) url.openConnection();
                         conn.setReadTimeout(10000 );
@@ -60,8 +60,8 @@ public class RegisterActivity extends AppCompatActivity {
                         if(Password.getText().toString().equals(Confirm_Password.getText().toString()))
                         {
                             // sending parameters to login function
-
-                            String params = "username="+Username.getText().toString()+"&password="+Password.getText().toString()+"&mail="+Mail.getText().toString()+"&age="+Age.getText().toString()+"&nationality="+Nationality.getText().toString()+"&occupation="+Occupation.getText().toString();
+//String name, String mail, int age, String nationality, String occupation, String password, String verifyPassword
+                            String params = "name="+Username.getText().toString()+"&mail="+Mail.getText().toString()+"&age="+Age.getText().toString()+"&nationality="+Nationality.getText().toString()+"&occupation="+Occupation.getText().toString()+"&password="+Password.getText().toString()+"&verifyPassword"+Confirm_Password.getText().toString();
                             Log.i("serverTest ", params);
 
                             OutputStream os = conn.getOutputStream();
@@ -88,7 +88,7 @@ public class RegisterActivity extends AppCompatActivity {
                             conn.disconnect();
                             //Correct code
 
-                            if(result.equals("1"))
+                            if(result.contains("1"))
                             {
                                 Intent intento= new Intent(RegisterActivity.this , com.example.fyf_a.MainActivity.class);
                                 startActivity(intento);
@@ -112,7 +112,7 @@ public class RegisterActivity extends AppCompatActivity {
                                                 AlertDialog.Builder builder = new AlertDialog.Builder(RegisterActivity.this);
                                                 builder
                                                         .setMessage("The username is not available :(")
-                                                        .setTitle("FurHub")
+                                                        .setTitle("Find Your Flat")
                                                         .setPositiveButton("OK", null);
 
                                                 builder.create().show();

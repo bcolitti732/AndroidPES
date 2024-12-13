@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">FindYourFlat</string>
+    <string name="title">Find Your Flat</string>
+    <string name="nameLbl">Name</string>
+    <string name="ageLbl">Age</string>
+    <string name="nationalityLbl">Nationality</string>
+    <string name="occupationLbl">Occupation</string>
+    <string name="mailLbl">Mail</string>
+    <string name="passwordLbl">Password</string>
+    <string name="confirmpasswordLbl">Confirm Password</string>
+    <string name="registerBtn">Register</string>
+    <string name="loginBtn">Login</string>
+</resources>

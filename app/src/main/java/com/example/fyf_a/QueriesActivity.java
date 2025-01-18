@@ -99,6 +99,7 @@ public class QueriesActivity extends AppCompatActivity {
         new Thread(new Runnable() {
             EditText flatAddress = (EditText) findViewById(R.id.addressLbl);
             ListView ratersListView = (ListView) findViewById(R.id.ratersList);
+            TextView ratersHeader = (TextView) findViewById(R.id.ratersHeader);
             InputStream stream = null;
             String result = null;
             Handler handler = new Handler();
@@ -131,6 +132,7 @@ public class QueriesActivity extends AppCompatActivity {
                             @Override
                             public void run() {
                                 if (result.equals("Flat not found") || result.equals("No ratings found for this flat")) {
+                                    ratersHeader.setVisibility(View.GONE); // Oculta el encabezado
                                     Toast.makeText(QueriesActivity.this, result, Toast.LENGTH_LONG).show();
                                 } else {
                                     try {
@@ -140,10 +142,14 @@ public class QueriesActivity extends AppCompatActivity {
                                             JSONObject jsonObject = jsonArray.getJSONObject(i);
                                             raters.add(jsonObject.getString("name"));
                                         }
+
+                                        // Mostrar el encabezado y la lista
+                                        ratersHeader.setVisibility(View.VISIBLE); // Muestra el encabezado
                                         ArrayAdapter<String> adapter = new ArrayAdapter<>(QueriesActivity.this, android.R.layout.simple_list_item_1, raters);
                                         ratersListView.setAdapter(adapter);
                                     } catch (JSONException e) {
                                         e.printStackTrace();
+                                        ratersHeader.setVisibility(View.GONE);
                                         Toast.makeText(QueriesActivity.this, "Error parsing data", Toast.LENGTH_LONG).show();
                                     }
                                 }
@@ -157,6 +163,7 @@ public class QueriesActivity extends AppCompatActivity {
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
+                            ratersHeader.setVisibility(View.GONE);
                             Toast.makeText(QueriesActivity.this, "Please enter a flat address", Toast.LENGTH_LONG).show();
                         }
                     });
@@ -164,5 +171,6 @@ public class QueriesActivity extends AppCompatActivity {
             }
         }).start();
     }
+
 
 }

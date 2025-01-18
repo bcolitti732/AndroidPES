@@ -34,7 +34,7 @@ public class QueriesActivity extends AppCompatActivity {
                 if (!flatAddress.getText().toString().isEmpty()) {
                     try {
                         String address = flatAddress.getText().toString();
-                        String query = String.format("http://192.168.1.132:9000/Android/getFlatOverallRating?address=%s", URLEncoder.encode(address, "UTF-8"));
+                        String query = String.format("http://192.168.56.1:9000/Android/getFlatOverallRating?address=%s", URLEncoder.encode(address, "UTF-8"));
                         URL url = new URL(query);
                         HttpURLConnection conn = (HttpURLConnection) url.openConnection();
                         conn.setReadTimeout(10000);

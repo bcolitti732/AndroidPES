@@ -48,14 +48,14 @@ public class RegisterActivity extends AppCompatActivity {
             public void run() {
                 if(!Username.getText().toString().isEmpty() && !Password.getText().toString().isEmpty() && !Confirm_Password.getText().toString().isEmpty()) {
                     try {
-                        String query = String.format("http://192.168.56.1:9000/Application/registerRenter?name=" + Username.getText().toString() + "&mail="+Mail.getText().toString()+"&age="+Age.getText().toString()+"&nationality="+Nationality.getText().toString()+"&occupation="+Occupation.getText().toString()+"&password="+Password.getText().toString()+"&verifyPassword"+Confirm_Password.getText().toString());
+                        String query = String.format("http://192.168.56.1:9000/Android/registerRenter?name=" + Username.getText().toString() + "&mail="+Mail.getText().toString()+"&age="+Age.getText().toString()+"&nationality="+Nationality.getText().toString()+"&occupation="+Occupation.getText().toString()+"&password="+Password.getText().toString()+"&verifyPassword="+Confirm_Password.getText().toString());
                         URL url = new URL(query);
                         HttpURLConnection conn = (HttpURLConnection) url.openConnection();
                         conn.setReadTimeout(10000 );
                         conn.setConnectTimeout(15000 /* milliseconds */);
                         conn.setRequestMethod("POST");
                         conn.setDoInput(true);
-                        conn.setDoOutput(true);
+                        conn.setDoOutput(true);   
                         conn.connect();
                         if(Password.getText().toString().equals(Confirm_Password.getText().toString()))
                         {

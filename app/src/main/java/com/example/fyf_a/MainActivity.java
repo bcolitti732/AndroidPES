@@ -43,7 +43,7 @@ public class MainActivity extends AppCompatActivity {
             public void run() {
                 if (!Username.getText().toString().isEmpty() && !Password.getText().toString().isEmpty()) {
                     try {
-                        String query = String.format("http://192.168.56.1:9000/Application/logInRenter?name=" + Username.getText().toString() + "&password=" + Password.getText().toString());
+                        String query = String.format("http://192.168.56.1:9000/Android/logInRenter?name=" + Username.getText().toString() + "&password=" + Password.getText().toString());
                         URL url = new URL(query);
                         HttpURLConnection conn = (HttpURLConnection) url.openConnection();
                         conn.setReadTimeout(10000);

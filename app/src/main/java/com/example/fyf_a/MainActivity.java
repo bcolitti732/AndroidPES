@@ -10,8 +10,6 @@ import android.os.Handler;
 import android.view.View;
 import android.widget.EditText;
 
-import com.example.fyf_a.RegisterActivity;
-
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -34,7 +32,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void Login(View view) {
         new Thread(new Runnable() {
-            EditText Username = (EditText) findViewById(R.id.nameLbl);
+            EditText Username = (EditText) findViewById(R.id.addressLbl);
             EditText Password = (EditText) findViewById(R.id.passwordLbl);
             InputStream stream = null;
             String result = null;
@@ -43,7 +41,7 @@ public class MainActivity extends AppCompatActivity {
             public void run() {
                 if (!Username.getText().toString().isEmpty() && !Password.getText().toString().isEmpty()) {
                     try {
-                        String query = String.format("http://192.168.56.1:9000/Application/logInRenter?name=" + Username.getText().toString() + "&password=" + Password.getText().toString());
+                        String query = String.format("http://192.168.56.1:9000/Android/logInRenter?name=" + Username.getText().toString() + "&password=" + Password.getText().toString());
                         URL url = new URL(query);
                         HttpURLConnection conn = (HttpURLConnection) url.openConnection();
                         conn.setReadTimeout(10000);
@@ -64,21 +62,10 @@ public class MainActivity extends AppCompatActivity {
 
                         Log.i("testProjecte", "result value is" + result);
                         if (result.equals("1")) {
-                            handler.post(new Runnable() {
-                                public void run() {
-                                    MainActivity.this.runOnUiThread(new Runnable() {
-                                        @Override
-                                        public void run() {
-                                            AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
-                                            builder.setMessage("USER")
-                                                    .setTitle("FurHub")
-                                                    .setPositiveButton("OK", null);
-                                            builder.create().show();
-                                        }
-                                    });
-                                }
-                            });
-                            // Aqui ira a la pagina con los pisos pero no se que poner
+                                //Para mandar parametros de una activity a otra
+                                Intent intento= new Intent( MainActivity.this , QueriesActivity.class);
+                                intento.putExtra("Username",Username.getText().toString());
+                                startActivity(intento);
                         } else {
                             handler.post(new Runnable() {
                                 public void run() {
@@ -87,7 +74,7 @@ public class MainActivity extends AppCompatActivity {
                                         public void run() {
                                             AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
                                             builder.setMessage("Username or password not found")
-                                                    .setTitle("FurHub")
+                                                    .setTitle("Find Your Flat")
                                                     .setPositiveButton("OK", null);
                                             builder.create().show();
                                         }

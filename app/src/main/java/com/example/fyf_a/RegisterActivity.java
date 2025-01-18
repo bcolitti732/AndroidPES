@@ -31,7 +31,7 @@ public class RegisterActivity extends AppCompatActivity {
     public void registerRenter(View view) {
 
         new Thread(new Runnable() {
-            EditText Username = (EditText) findViewById(R.id.nameLbl);
+            EditText Username = (EditText) findViewById(R.id.addressLbl);
             EditText Password = (EditText) findViewById(R.id.passwordLbl);
             EditText Confirm_Password = (EditText) findViewById(R.id.confirmpasswordLbl);
             EditText Mail = (EditText) findViewById(R.id.mailLbl);
@@ -48,7 +48,7 @@ public class RegisterActivity extends AppCompatActivity {
             public void run() {
                 if(!Username.getText().toString().isEmpty() && !Password.getText().toString().isEmpty() && !Confirm_Password.getText().toString().isEmpty()) {
                     try {
-                        String query = String.format("http://192.168.56.1:9000/Application/registerRenter?name=" + Username.getText().toString() + "&mail="+Mail.getText().toString()+"&age="+Age.getText().toString()+"&nationality="+Nationality.getText().toString()+"&occupation="+Occupation.getText().toString()+"&password="+Password.getText().toString()+"&verifyPassword"+Confirm_Password.getText().toString());
+                        String query = String.format("http://192.168.56.1:9000/Android/registerRenter?name=" + Username.getText().toString() + "&mail="+Mail.getText().toString()+"&age="+Age.getText().toString()+"&nationality="+Nationality.getText().toString()+"&occupation="+Occupation.getText().toString()+"&password="+Password.getText().toString()+"&verifyPassword="+Confirm_Password.getText().toString());
                         URL url = new URL(query);
                         HttpURLConnection conn = (HttpURLConnection) url.openConnection();
                         conn.setReadTimeout(10000 );

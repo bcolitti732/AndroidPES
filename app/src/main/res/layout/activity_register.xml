@@ -22,7 +22,7 @@
         app:layout_constraintVertical_bias="0.119" />
 
     <EditText
-        android:id="@+id/nameLbl"
+        android:id="@+id/addressLbl"
         android:layout_width="232dp"
         android:layout_height="56dp"
         android:ems="10"

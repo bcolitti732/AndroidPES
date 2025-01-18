@@ -31,7 +31,7 @@ public class RegisterActivity extends AppCompatActivity {
     public void registerRenter(View view) {
 
         new Thread(new Runnable() {
-            EditText Username = (EditText) findViewById(R.id.nameLbl);
+            EditText Username = (EditText) findViewById(R.id.addressLbl);
             EditText Password = (EditText) findViewById(R.id.passwordLbl);
             EditText Confirm_Password = (EditText) findViewById(R.id.confirmpasswordLbl);
             EditText Mail = (EditText) findViewById(R.id.mailLbl);

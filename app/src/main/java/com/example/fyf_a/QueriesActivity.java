@@ -15,6 +15,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import org.json.JSONArray;
 import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.BufferedReader;
 import java.io.InputStream;
@@ -136,7 +137,8 @@ public class QueriesActivity extends AppCompatActivity {
                                         JSONArray jsonArray = new JSONArray(result);
                                         List<String> raters = new ArrayList<>();
                                         for (int i = 0; i < jsonArray.length(); i++) {
-                                            raters.add(jsonArray.getString(i));
+                                            JSONObject jsonObject = jsonArray.getJSONObject(i);
+                                            raters.add(jsonObject.getString("name"));
                                         }
                                         ArrayAdapter<String> adapter = new ArrayAdapter<>(QueriesActivity.this, android.R.layout.simple_list_item_1, raters);
                                         ratersListView.setAdapter(adapter);

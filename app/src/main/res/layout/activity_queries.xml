@@ -44,6 +44,7 @@
         android:fontFamily="@font/alfa_slab_one"
         android:text="Get the average rating of a flat or the list of people that rated it"
         android:textSize="14sp"
+        android:gravity="center"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"

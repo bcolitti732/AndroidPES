@@ -34,63 +34,76 @@ public class MainActivity extends AppCompatActivity {
         new Thread(new Runnable() {
             EditText Username = (EditText) findViewById(R.id.addressLbl);
             EditText Password = (EditText) findViewById(R.id.passwordLbl);
+            EditText ConfirmPassword = (EditText) findViewById(R.id.confirmpasswordLbl);
             InputStream stream = null;
             String result = null;
             Handler handler = new Handler();
 
             public void run() {
-                if (!Username.getText().toString().isEmpty() && !Password.getText().toString().isEmpty()) {
-                    try {
-                        String query = String.format("http://192.168.56.1:9000/Android/logInRenter?name=" + Username.getText().toString() + "&password=" + Password.getText().toString());
-                        URL url = new URL(query);
-                        HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-                        conn.setReadTimeout(10000);
-                        conn.setConnectTimeout(15000);
-                        conn.setRequestMethod("GET");
-                        conn.setDoInput(true);
-                        conn.connect();
-                        stream = conn.getInputStream();
+                if (!Username.getText().toString().isEmpty() && !Password.getText().toString().isEmpty() && !ConfirmPassword.getText().toString().isEmpty()) {
+                    if (Password.getText().toString().equals(ConfirmPassword.getText().toString())) {
+                        try {
+                            String query = String.format("http://192.168.56.1:9000/Android/logInRenter?name=" + Username.getText().toString() + "&password=" + Password.getText().toString());
+                            URL url = new URL(query);
+                            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+                            conn.setReadTimeout(10000);
+                            conn.setConnectTimeout(15000);
+                            conn.setRequestMethod("GET");
+                            conn.setDoInput(true);
+                            conn.connect();
+                            stream = conn.getInputStream();
 
-                        BufferedReader reader = new BufferedReader(new InputStreamReader(stream));
-                        StringBuilder sb = new StringBuilder();
-                        String line;
-                        while ((line = reader.readLine()) != null) {
-                            sb.append(line);
-                        }
-                        result = sb.toString();
-                        conn.disconnect();
+                            BufferedReader reader = new BufferedReader(new InputStreamReader(stream));
+                            StringBuilder sb = new StringBuilder();
+                            String line;
+                            while ((line = reader.readLine()) != null) {
+                                sb.append(line);
+                            }
+                            result = sb.toString();
+                            conn.disconnect();
 
-                        Log.i("testProjecte", "result value is" + result);
-                        if (result.equals("1")) {
+                            Log.i("testProjecte", "result value is" + result);
+                            if (result.equals("1")) {
                                 //Para mandar parametros de una activity a otra
-                                Intent intento= new Intent( MainActivity.this , QueriesActivity.class);
-                                intento.putExtra("Username",Username.getText().toString());
+                                Intent intento = new Intent(MainActivity.this, QueriesActivity.class);
+                                intento.putExtra("Username", Username.getText().toString());
                                 startActivity(intento);
-                        } else {
-                            handler.post(new Runnable() {
-                                public void run() {
-                                    MainActivity.this.runOnUiThread(new Runnable() {
-                                        @Override
-                                        public void run() {
-                                            AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
-                                            builder.setMessage("Username or password not found")
-                                                    .setTitle("Find Your Flat")
-                                                    .setPositiveButton("OK", null);
-                                            builder.create().show();
-                                        }
-                                    });
-                                }
-                            });
+                            } else {
+                                handler.post(new Runnable() {
+                                    public void run() {
+                                        MainActivity.this.runOnUiThread(new Runnable() {
+                                            @Override
+                                            public void run() {
+                                                AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+                                                builder.setMessage("Username or password not found")
+                                                        .setTitle("Find Your Flat")
+                                                        .setPositiveButton("OK", null);
+                                                builder.create().show();
+                                            }
+                                        });
+                                    }
+                                });
+                            }
+                        } catch (Exception e) {
+                            e.printStackTrace();
                         }
-                    } catch (Exception e) {
-                        e.printStackTrace();
+                    } else {
+                        handler.post(new Runnable() {
+                            public void run() {
+                                AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+                                builder.setMessage("Passwords do not match")
+                                        .setTitle("Error")
+                                        .setPositiveButton("OK", null);
+                                builder.create().show();
+                            }
+                        });
                     }
                 } else {
                     handler.post(new Runnable() {
                         public void run() {
                             AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
                             builder.setMessage("Please fill in all fields")
-                                    .setTitle("FurHub")
+                                    .setTitle("Find Your Flat")
                                     .setPositiveButton("OK", null);
                             builder.create().show();
                         }

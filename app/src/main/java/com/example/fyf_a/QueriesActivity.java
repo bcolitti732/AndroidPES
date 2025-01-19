@@ -1,9 +1,11 @@
 package com.example.fyf_a;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -35,9 +37,25 @@ public class QueriesActivity extends AppCompatActivity {
         String username = getIntent().getStringExtra("Username");
 
         TextView welcomeTextView = findViewById(R.id.textView2);
-        String welcomeMessage = "Welcome " + username + ", please select any query";
+        String welcomeMessage = " Welcome " + username + ", please select any query ";
         welcomeTextView.setText(welcomeMessage);
+
+        Button logoutButton = findViewById(R.id.button2);
+        logoutButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                logout();
+            }
+        });
     }
+
+    private void logout() {
+        Intent intent = new Intent(QueriesActivity.this, MainActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(intent);
+        Toast.makeText(this, "Logged out successfully", Toast.LENGTH_SHORT).show();
+    }
+
     public void getFlatOverallRating(View view) {
         new Thread(new Runnable() {
             EditText flatAddress = (EditText) findViewById(R.id.addressLbl);

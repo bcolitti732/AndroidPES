@@ -31,6 +31,12 @@ public class QueriesActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_queries);
+
+        String username = getIntent().getStringExtra("Username");
+
+        TextView welcomeTextView = findViewById(R.id.textView2);
+        String welcomeMessage = "Welcome " + username + ", please select any query";
+        welcomeTextView.setText(welcomeMessage);
     }
     public void getFlatOverallRating(View view) {
         new Thread(new Runnable() {
